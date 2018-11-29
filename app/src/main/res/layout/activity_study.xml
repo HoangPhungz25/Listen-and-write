@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".StudyActivity">
+
+    <com.google.android.youtube.player.YouTubePlayerView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="6"
+        android:id="@+id/youtubeView">
+    </com.google.android.youtube.player.YouTubePlayerView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1.5"
+        android:background="#1d75a1"
+        android:elevation="18dp"
+        android:orientation="horizontal"
+        android:padding="1.5dp"
+        android:weightSum="16">
+
+        <ImageButton
+            android:layout_marginLeft="5dp"
+            android:id="@+id/btPreviousTrack"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2.5"
+            android:background="#bdf6f9"
+            android:src="@drawable/previous_track" />
+
+        <Spinner
+            android:id="@+id/spinnerSelectTrack"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2.5"></Spinner>
+
+        <ImageButton
+            android:id="@+id/btNextTrack"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2.5"
+            android:background="#bdf6f9"
+            android:src="@drawable/next_track" />
+
+        <ImageButton
+            android:id="@+id/btCheck"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="8.5"
+            android:layout_gravity="end"
+            android:background="#bdf6f9"
+            android:layout_marginLeft="5dp"
+            android:src="@drawable/check_green_mark" />
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/etAnswer"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="3.5"
+        android:ems="10"
+        android:hint="type answer here"
+        android:background="#5abce6"
+        android:elevation="15dp"
+        android:inputType="textMultiLine" />
+
+    <TextView
+        android:id="@+id/tvResult"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="#8edaf1"
+        android:elevation="1dp"
+        android:layout_weight="4" />
+</LinearLayout>
