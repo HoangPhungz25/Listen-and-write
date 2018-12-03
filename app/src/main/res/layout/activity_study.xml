@@ -10,7 +10,7 @@
     <com.google.android.youtube.player.YouTubePlayerView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="6"
+        android:layout_weight="4"
         android:id="@+id/youtubeView">
     </com.google.android.youtube.player.YouTubePlayerView>
 
@@ -67,6 +67,7 @@
         android:hint="type answer here"
         android:background="#5abce6"
         android:elevation="15dp"
+        android:textSize="28sp"
         android:inputType="textMultiLine" />
 
     <TextView
@@ -74,6 +75,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:background="#8edaf1"
+        android:textSize="28sp"
         android:elevation="1dp"
         android:layout_weight="4" />
 </LinearLayout>
