@@ -69,9 +69,7 @@
         android:gravity="start"
         android:hint="type answer here"
         android:inputType="textMultiLine"
-        android:textSize="24sp"
-        android:lines="5"
-        android:maxLines="5"/>
+        android:textSize="24sp" />
 
     <TextView
         android:id="@+id/tvResult"

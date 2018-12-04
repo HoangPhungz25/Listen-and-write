@@ -15,9 +15,20 @@ import com.google.android.youtube.player.YouTubeThumbnailView;
             this.id_video = id_video;
         }
         @Override
-        public void onInitializationSuccess(YouTubeThumbnailView youTubeThumbnailView, YouTubeThumbnailLoader youTubeThumbnailLoader) {
+        public void onInitializationSuccess(YouTubeThumbnailView youTubeThumbnailView, final YouTubeThumbnailLoader youTubeThumbnailLoader) {
 
             youTubeThumbnailLoader.setVideo(id_video);
+            youTubeThumbnailLoader.setOnThumbnailLoadedListener(new YouTubeThumbnailLoader.OnThumbnailLoadedListener() {
+                @Override
+                public void onThumbnailLoaded(YouTubeThumbnailView youTubeThumbnailView, String s) {
+                    youTubeThumbnailLoader.release();
+                }
+
+                @Override
+                public void onThumbnailError(YouTubeThumbnailView youTubeThumbnailView, YouTubeThumbnailLoader.ErrorReason errorReason) {
+
+                }
+            });
             youTubeThumbnailView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

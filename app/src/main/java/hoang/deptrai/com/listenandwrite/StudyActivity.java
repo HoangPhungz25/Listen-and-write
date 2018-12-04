@@ -143,12 +143,12 @@ public class StudyActivity extends YouTubeBaseActivity implements YouTubePlayer.
         },1000);
     }
 
-        private void createSpinner(){
+    private void createSpinner(){
         String[] number_of_track_array_string = new String[track_start_array.length];
         for(int i=0; i< number_of_track_array_string.length; i++){
             number_of_track_array_string[i] = i+"";
         }
-        ArrayAdapter arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item,number_of_track_array_string);
+        ArrayAdapter arrayAdapter = new ArrayAdapter(this, R.layout.spinner_item ,number_of_track_array_string);
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerSelectTrack.setAdapter(arrayAdapter);
     }
