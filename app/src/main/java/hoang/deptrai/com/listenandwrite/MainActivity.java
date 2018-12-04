@@ -1,9 +1,13 @@
 package hoang.deptrai.com.listenandwrite;
 
 import android.content.Intent;
+import android.support.annotation.NonNull;
+import android.support.design.widget.NavigationView;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -28,6 +32,9 @@ public class MainActivity extends AppCompatActivity {
     ListView lvVideo;
     ArrayList<ArrayList<Video>> data;
 
+    DrawerLayout drawerLayout;
+    NavigationView navigationView;
+
     private int NOW_LEVEL = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +46,17 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void addEvents() {
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                item.setChecked(true);
+                drawerLayout.closeDrawer(navigationView);
+
+                //UI change
+
+                return true;
+            }
+        });
         spinnerLevel.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -79,6 +97,11 @@ public class MainActivity extends AppCompatActivity {
 
         //list view
         lvVideo = findViewById(R.id.lvVideo);
+
+        //side bar navigation
+        drawerLayout = findViewById(R.id.drawerLayout);
+        navigationView = findViewById(R.id.nav_view);
+
 
         //data
         /* No longer required, this is the old way to create data

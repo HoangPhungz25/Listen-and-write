@@ -38,6 +38,7 @@ public class Compare2StringArray {
                          that means stringArray_result[j] belongs to that substring */
                         if(j>list_2D_subStrings.get(k).getFirst_index_of_similar_substring()){
                             if(j<list_2D_subStrings.get(k).getLast_index_of_similar_substring()){
+                                Log.d("strComp","n-o"+stringArray_result[j]);
                                 is_between_a_existed_substring=true;
 
                                 SubStrings_Indexs_Model subStrings_indexs_model = list_2D_subStrings.get(k);
@@ -53,11 +54,13 @@ public class Compare2StringArray {
                                                 subStrings_indexs_model.getIndex_array_of_similar_substrings()[i2];
                                 }
                                 new_subStrings_indexs_model.getIndex_array_of_similar_substrings()[j] = 1;
-
+                                new_subStrings_indexs_model.setNumber_of_similar_substrings(subStrings_indexs_model.getNumber_of_similar_substrings()+1);
                                 list_2D_subStrings.add(new_subStrings_indexs_model);
+
                             }
                             else
                             if(j>list_2D_subStrings.get(k).getLast_index_of_similar_substring()){
+                                Log.d("strComp","old"+stringArray_result[j]);
                                 is_belong_to_a_existed_substring = true;
                                 list_2D_subStrings.get(k).getIndex_array_of_similar_substrings()[j]=1;
                                 list_2D_subStrings.get(k).setNumber_of_similar_substrings(
@@ -69,9 +72,11 @@ public class Compare2StringArray {
                     /*if is_belong_to_a_existed_substring is  false,
                       then create new substring which has first index is j*/
                     if(!is_belong_to_a_existed_substring && !is_between_a_existed_substring){
+                        Log.d("strComp","new"+stringArray_result[j]);
                         list_2D_subStrings.add(new SubStrings_Indexs_Model(stringArray_result.length,j,j));
                         list_2D_subStrings.get(list_2D_subStrings.size()-1).getIndex_array_of_similar_substrings()[j]=1;
                     }
+                    break;
                 }
         }
         int max_length_substring_in_list2Dsubstring = 0;

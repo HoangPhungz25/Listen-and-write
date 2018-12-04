@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:weightSum="10"
+    android:background="#daf2f4"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/ivAppIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_gravity="center"
+        android:layout_weight="2"
+        android:src="@drawable/ic_launcher" />
+    <TextView
+        android:textSize="24sp"
+        android:textColor="#05011b"
+        android:textStyle="bold"
+        android:gravity="center_horizontal"
+        android:text="Listen and Write SIE 2.0"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.8"/>
+    <TextView
+        android:textSize="20sp"
+        android:gravity="center_horizontal"
+        android:textColor="#05011b"
+        android:textStyle="italic"
+        android:text="Help you learn English happier!"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"></View>
+    <TextView
+        android:layout_marginLeft="8dp"
+        android:textSize="18sp"
+        android:textColor="#05011b"
+        android:text="Special thank to: Mr.Thanh"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+    <TextView
+        android:layout_marginLeft="8dp"
+        android:textSize="18sp"
+        android:textColor="#05011b"
+        android:text="User Agreement"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+    <TextView
+        android:layout_marginLeft="8dp"
+        android:textSize="18sp"
+        android:textColor="#05011b"
+        android:text="Private Policy"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+    <TextView
+        android:layout_marginLeft="8dp"
+        android:textSize="18sp"
+        android:textColor="#05011b"
+        android:text="Contact us"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+    <TextView
+        android:layout_marginLeft="8dp"
+        android:textSize="14sp"
+        android:textStyle="italic"
+        android:gravity="center"
+        android:text="Copyright@2018 SIE 2.0 Studio"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+
+</LinearLayout>
