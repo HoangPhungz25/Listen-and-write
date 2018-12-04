@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -23,6 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import hoang.deptrai.com.listenandwrite.algorithm.Compare2StringArray;
+import hoang.deptrai.com.listenandwrite.algorithm.ToolString;
 import hoang.deptrai.com.listenandwrite.data.KEY;
 import hoang.deptrai.com.listenandwrite.data.Video;
 
@@ -37,16 +39,31 @@ public class StudyActivity extends YouTubeBaseActivity implements YouTubePlayer.
 
     Handler handlerParent,handler;
     Compare2StringArray compare2StringArray;
+    ToolString toolString;
 
     private Video now_video;
+    private int index_selected_track=0;
+    private int[] track_start_array, track_end_array;
+    private String[] subLyric_array;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_study);
 
+        //set push up content when keyboard is showing
+        this.getWindow().setSoftInputMode(
+                WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE|WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+
+
         Intent intent = getIntent();
         now_video = (Video) intent.getSerializableExtra("VIDEO");
+
+        toolString = new ToolString();
+        track_start_array = toolString.split_string_to_int_array(now_video.getTrack_start_array());
+        track_end_array = toolString.split_string_to_int_array(now_video.getTrack_end_array());
+        subLyric_array = toolString.split_lyrics(now_video.getLyrics());
+
 
         addControls();
         addEvents();
@@ -57,8 +74,8 @@ public class StudyActivity extends YouTubeBaseActivity implements YouTubePlayer.
         spinnerSelectTrack.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(StudyActivity.this, now_video.getTrack_start_array()[position]+"", Toast.LENGTH_SHORT).show();
-                repeatPlay(now_video.getTrack_start_array()[position],now_video.getTrack_end_array()[position]);
+                index_selected_track = position;
+                repeatPlay(track_start_array[position],track_end_array[position]);
             }
 
             @Override
@@ -70,10 +87,9 @@ public class StudyActivity extends YouTubeBaseActivity implements YouTubePlayer.
             @Override
             public void onClick(View v) {
                 Log.d("handler","Start Check");
-                tvResult.setText(compare2StringArray.
-                                    compare2StringArray(etAnswer.getText().
-                                            toString(),
-                                            "Hello babes my love"));
+                tvResult.setText(compare2StringArray.compare2StringArray(
+                                            etAnswer.getText().toString(),
+                                            subLyric_array[index_selected_track]));
                 Toast.makeText(StudyActivity.this, "Checked", Toast.LENGTH_LONG).show();
                 Log.d("handler","End Check");
             }
@@ -82,7 +98,7 @@ public class StudyActivity extends YouTubeBaseActivity implements YouTubePlayer.
             @Override
             public void onClick(View v) {
                 //if there is at least one more track, move to the next track
-                if(spinnerSelectTrack.getSelectedItemPosition()<now_video.getTrack_start_array().length-1)
+                if(spinnerSelectTrack.getSelectedItemPosition()<track_start_array.length-1)
                 spinnerSelectTrack.setSelection(spinnerSelectTrack.getSelectedItemPosition()+1);
             }
         });
@@ -110,9 +126,6 @@ public class StudyActivity extends YouTubeBaseActivity implements YouTubePlayer.
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-//                        if(!IS_RUNNING){
-//                            handler.removeCallbacks(this);
-//                        }else{
                             if(player.getCurrentTimeMillis()<end){
                                 handler.postDelayed(this, 1000);
                                 Log.d("handler",player.getCurrentTimeMillis()+"-"+start+":"+end);
@@ -124,17 +137,14 @@ public class StudyActivity extends YouTubeBaseActivity implements YouTubePlayer.
 
                                 handlerParent.postDelayed(this, 1000);
                             }
-//                        }
                     }
                 },1000);
             }
         },1000);
-
-
     }
 
         private void createSpinner(){
-        String[] number_of_track_array_string = new String[now_video.getTrack_start_array().length];
+        String[] number_of_track_array_string = new String[track_start_array.length];
         for(int i=0; i< number_of_track_array_string.length; i++){
             number_of_track_array_string[i] = i+"";
         }
@@ -152,6 +162,7 @@ public class StudyActivity extends YouTubeBaseActivity implements YouTubePlayer.
         handler = new Handler();
         //Comparator
         compare2StringArray = new Compare2StringArray();
+        //toolString to split string
 
         //button
         btPrevious = findViewById(R.id.btPreviousTrack);

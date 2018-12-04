@@ -5,14 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:weightSum="13"
     tools:context=".StudyActivity">
 
     <com.google.android.youtube.player.YouTubePlayerView
+        android:id="@+id/youtubeView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="4"
-        android:id="@+id/youtubeView">
-    </com.google.android.youtube.player.YouTubePlayerView>
+        android:layout_weight="4"></com.google.android.youtube.player.YouTubePlayerView>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -25,10 +25,10 @@
         android:weightSum="16">
 
         <ImageButton
-            android:layout_marginLeft="5dp"
             android:id="@+id/btPreviousTrack"
             android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:layout_marginLeft="5dp"
             android:layout_weight="2.5"
             android:background="#bdf6f9"
             android:src="@drawable/previous_track" />
@@ -51,10 +51,10 @@
             android:id="@+id/btCheck"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="8.5"
             android:layout_gravity="end"
-            android:background="#bdf6f9"
             android:layout_marginLeft="5dp"
+            android:layout_weight="8.5"
+            android:background="#bdf6f9"
             android:src="@drawable/check_green_mark" />
     </LinearLayout>
 
@@ -63,19 +63,22 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="3.5"
-        android:ems="10"
-        android:hint="type answer here"
         android:background="#5abce6"
         android:elevation="15dp"
-        android:textSize="28sp"
-        android:inputType="textMultiLine" />
+        android:ems="10"
+        android:gravity="start"
+        android:hint="type answer here"
+        android:inputType="textMultiLine"
+        android:textSize="24sp"
+        android:lines="5"
+        android:maxLines="5"/>
 
     <TextView
         android:id="@+id/tvResult"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_weight="4"
         android:background="#8edaf1"
-        android:textSize="28sp"
         android:elevation="1dp"
-        android:layout_weight="4" />
+        android:textSize="24sp" />
 </LinearLayout>

@@ -3,6 +3,7 @@ package hoang.deptrai.com.listenandwrite;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -17,7 +18,9 @@ import com.google.android.youtube.player.YouTubeThumbnailView;
 import java.util.ArrayList;
 
 import hoang.deptrai.com.listenandwrite.adapter.AdapterVideo;
+import hoang.deptrai.com.listenandwrite.data.Database;
 import hoang.deptrai.com.listenandwrite.data.SimulateData;
+import hoang.deptrai.com.listenandwrite.data.SimulateData_to_SQLiteDatabase;
 import hoang.deptrai.com.listenandwrite.data.Video;
 
 public class MainActivity extends AppCompatActivity {
@@ -57,17 +60,13 @@ public class MainActivity extends AppCompatActivity {
             private void startStudyActivity(int position) {
                 Video video = data.get(NOW_LEVEL).get(position);
                 Intent intent = new Intent(MainActivity.this, StudyActivity.class);
+                Log.d("database",video.getName());
                 intent.putExtra("VIDEO",video);
                 startActivity(intent);
             }
         });
     }
-    private void updateListView(int level){
-        ArrayList<Video> listVideo = data.get(level);
-        AdapterVideo adapterVideo = new AdapterVideo(MainActivity.this, R.layout.item_video,listVideo);
-        adapterVideo.notifyDataSetChanged();
-        lvVideo.setAdapter(adapterVideo);
-    }
+
     private void addControls() {
         //spinner
         spinnerLevel = findViewById(R.id.spinnerLevel);
@@ -80,9 +79,23 @@ public class MainActivity extends AppCompatActivity {
 
         //list view
         lvVideo = findViewById(R.id.lvVideo);
+
         //data
-        SimulateData simulateData = new SimulateData();
-        data = simulateData.getManyListVideo();
+        /* No longer required, this is the old way to create data
+            SimulateData simulateData = new SimulateData();
+            data = simulateData.getManyListVideo();
+         */
+        SimulateData_to_SQLiteDatabase simulateData_to_sqLiteDatabase = new SimulateData_to_SQLiteDatabase(MainActivity.this);
+        Log.d("database","created simulate database");
+        Database database = new Database(simulateData_to_sqLiteDatabase.databaseQuery);
+        data = database.getDataFromVideoTable();
+        Log.d("database","got database to ArayList<ArrayList<>>");
+    }
+    private void updateListView(int level){
+        ArrayList<Video> listVideo = data.get(level);
+        AdapterVideo adapterVideo = new AdapterVideo(MainActivity.this, R.layout.item_video,listVideo);
+        lvVideo.setAdapter(adapterVideo);
+        adapterVideo.notifyDataSetChanged();
     }
 
 }
