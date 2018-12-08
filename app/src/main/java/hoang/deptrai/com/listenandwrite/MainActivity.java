@@ -3,6 +3,8 @@ package hoang.deptrai.com.listenandwrite;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -26,6 +28,7 @@ import java.util.ArrayList;
 
 import hoang.deptrai.com.listenandwrite.adapter.AdapterVideo;
 import hoang.deptrai.com.listenandwrite.data.Database;
+import hoang.deptrai.com.listenandwrite.data.Database_Query;
 import hoang.deptrai.com.listenandwrite.data.SimulateData;
 import hoang.deptrai.com.listenandwrite.data.SimulateData_to_SQLiteDatabase;
 import hoang.deptrai.com.listenandwrite.data.Video;
@@ -58,26 +61,26 @@ public class MainActivity extends AppCompatActivity {
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                item.setChecked(true);
+                drawerLayout.closeDrawer(navigationView);
+
                 switch (item.getItemId()){
                     case R.id.nav_level:
-                        Toast.makeText(MainActivity.this, "LEVEL", Toast.LENGTH_SHORT).show();
+                        for (Fragment fragment:getSupportFragmentManager().getFragments()) {
+                            getSupportFragmentManager().beginTransaction().remove(fragment).commit();
+                        }
                         break;
                     case R.id.nav_about_us:
                         getSupportFragmentManager().
                                 beginTransaction().
-                                replace(R.id.fragment_container,new FragmentLogin()).commit();
+                                add(R.id.fragment_container,new FragmentAboutUs()).commit();
                         break;
                     case R.id.nav_login:
                         getSupportFragmentManager().
                                 beginTransaction().
-                                replace(R.id.fragment_container,new FragmentLogin()).commit();
+                                add(R.id.fragment_container,new FragmentLogin()).commit();
                         break;
                 }
-                item.setChecked(true);
-                drawerLayout.closeDrawer(navigationView);
-
-                //UI change
-
                 return true;
             }
         });
@@ -96,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
         lvVideo.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                startStudyActivity(position);
+                if(data!=null)startStudyActivity(position);
             }
 
             private void startStudyActivity(int position) {
@@ -132,11 +135,11 @@ public class MainActivity extends AppCompatActivity {
             SimulateData simulateData = new SimulateData();
             data = simulateData.getManyListVideo();
          */
-        SimulateData_to_SQLiteDatabase simulateData_to_sqLiteDatabase = new SimulateData_to_SQLiteDatabase(MainActivity.this);
-        Log.d("database","created simulate database");
-        Database database = new Database(simulateData_to_sqLiteDatabase.databaseQuery);
+//        SimulateData_to_SQLiteDatabase simulateData_to_sqLiteDatabase = new SimulateData_to_SQLiteDatabase(MainActivity.this);
+//        Log.d("database","created simulate database");
+        Database database = new Database(new Database_Query(this,"LAW_databaseQuery.sql",null, 1));
         data = database.getDataFromVideoTable();
-        Log.d("database","got database to ArayList<ArrayList<>>");
+//        Log.d("database","got database to ArayList<ArrayList<>>");
     }
     private void updateListView(int level){
         ArrayList<Video> listVideo = data.get(level);

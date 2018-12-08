@@ -3,11 +3,43 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
+    android:background="#67c1d6"
+    android:weightSum="8"
     android:layout_height="match_parent">
-
-    <TextView
+    <View
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1.5">
+
+    </View>
+    <TextView
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
         android:text="Login"
+        android:layout_weight="1"
         android:textSize="36sp"/>
+    <EditText
+        android:hint="gmail"
+        android:layout_gravity="center"
+        android:layout_width="250dp"
+        android:layout_height="0dp"
+        android:layout_weight="0.8"/>
+    <EditText
+        android:hint="password"
+        android:layout_gravity="center"
+        android:layout_width="250dp"
+        android:layout_height="0dp"
+        android:layout_weight="0.8"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="30dp"></View>
+    <Button
+        android:layout_width="200dp"
+        android:layout_height="60dp"
+        android:layout_gravity="center"
+        android:text="Login"
+        android:textColor="#f9f9f9"
+        android:textSize="18sp"
+        android:background="@drawable/login_editext_shape"/>
 </LinearLayout>

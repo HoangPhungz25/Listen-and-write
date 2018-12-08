@@ -11,17 +11,18 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Compare2StringArray {
-    int similar_color = Color.rgb(5,127,50);
-    int not_similar_color = Color.RED;
+
 
     public Compare2StringArray(){
 
     }
-    public SpannableString compare2StringArray(String string_answer, String string_result){
+    public ObjectModel_To_DrawChart compare2StringArray(String string_answer, String string_result){
         ToolString toolString = new ToolString();
         String[] stringArray_answer = toolString.split_string_to_string_array(string_answer);
         String[] stringArray_result = toolString.split_string_to_string_array(string_result);
         ArrayList<SubStrings_Indexs_Model> list_2D_subStrings = new ArrayList<SubStrings_Indexs_Model>();
+        int percent_ofSimilarSubstring = 0;
+
 
 //        int[] return_result = new int[stringArray_result.length];
 //        int[] temp_result = new int[stringArray_result.length];
@@ -89,8 +90,9 @@ public class Compare2StringArray {
             }
         }
 
-          //get spannable String
-            SpannableString ss_result = new SpannableString(string_result);
+        percent_ofSimilarSubstring = (10 * max_length_substring_in_list2Dsubstring / stringArray_result.length);
+
+        Log.d("percent",percent_ofSimilarSubstring+"");
             int[] result_index_array = new int[stringArray_result.length];
             //if there is at least a similar substring, get a result_index_array that represent max length similar substrings
             // else get a result_index_array that represent an string that has no similar substring
@@ -102,21 +104,8 @@ public class Compare2StringArray {
                 Arrays.fill(result_index_array,0);
             }
 
-            int index_now = 0;
 
-            for(int i=0; i<result_index_array.length; i++){
-                if(result_index_array[i]==1){
-                    ss_result.setSpan(new ForegroundColorSpan(similar_color),
-                            index_now,(index_now+stringArray_result[i].length()),
-                            Spanned.SPAN_INCLUSIVE_INCLUSIVE);
-                }else{
-                    ss_result.setSpan(new ForegroundColorSpan(not_similar_color),
-                            index_now,(index_now+stringArray_result[i].length()),
-                            Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-                }
-                index_now += stringArray_result[i].length()+1;
-            }
-        return ss_result;
+        return new ObjectModel_To_DrawChart(result_index_array, percent_ofSimilarSubstring);
     }
 
     private boolean compare2Word(String string_src, String string_des){

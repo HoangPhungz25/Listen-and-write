@@ -1,6 +1,13 @@
 package hoang.deptrai.com.listenandwrite.algorithm;
 
+import android.graphics.Color;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.style.ForegroundColorSpan;
+
 public class ToolString {
+    int similar_color = Color.rgb(5,127,50);
+    int not_similar_color = Color.RED;
     public ToolString(){
 
     }
@@ -30,6 +37,27 @@ public class ToolString {
         String output = inputString.trim().toLowerCase();
         output = output.replaceAll("[']","");
         return output;
+    }
+    public SpannableString colorize(String string_result, int[] result_index_array){
+        //get spannable String
+        SpannableString ss_result = new SpannableString(string_result);
+        String[] stringArray_result = split_string_to_string_array(string_result);
+        int index_now = 0;
+
+        for(int i=0; i<result_index_array.length; i++){
+            if(result_index_array[i]==1){
+                ss_result.setSpan(new ForegroundColorSpan(similar_color),
+                        index_now,(index_now+stringArray_result[i].length()),
+                        Spanned.SPAN_INCLUSIVE_INCLUSIVE);
+            }else{
+                ss_result.setSpan(new ForegroundColorSpan(not_similar_color),
+                        index_now,(index_now+stringArray_result[i].length()),
+                        Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            }
+            index_now += stringArray_result[i].length()+1;
+        }
+
+        return ss_result;
     }
 
 }

@@ -7,11 +7,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class FragmentAboutUs extends Fragment {
+public class FragmentAboutUs extends android.support.v4.app.Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_about_us,container);
+        View view = inflater.inflate(R.layout.fragment_about_us,container,false);
         return view;
     }
 }
