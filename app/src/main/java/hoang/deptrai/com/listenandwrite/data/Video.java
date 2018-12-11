@@ -14,13 +14,14 @@ public class Video implements Serializable{
 
     private int time_played_this_video;
     private String percent_of_eachTimePlayed;
+    private int avg_percent_of_all_time;
     public Video(){
 
     }
 
     public Video(String name,int level,String author,String id_video,
                  String track_start_array, String track_end_array,String lyrics,
-                 int time_played_this_video, String percent_of_eachTimePlayed) {
+                 int time_played_this_video, String percent_of_eachTimePlayed, int avg_percent_of_all_time) {
         this.name = name;
         this.level = level;
         this.author = author;
@@ -30,6 +31,15 @@ public class Video implements Serializable{
         this.lyrics = lyrics;
         this.time_played_this_video = time_played_this_video;
         this.percent_of_eachTimePlayed = percent_of_eachTimePlayed;
+        this.avg_percent_of_all_time = avg_percent_of_all_time;
+    }
+
+    public int getAvg_percent_of_all_time() {
+        return avg_percent_of_all_time;
+    }
+
+    public void setAvg_percent_of_all_time(int avg_percent_of_all_time) {
+        this.avg_percent_of_all_time = avg_percent_of_all_time;
     }
 
     public void setLyrics(String lyrics) {

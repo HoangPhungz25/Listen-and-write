@@ -37,7 +37,8 @@ public class Database {
                         cursor.getString(5),
                         cursor.getString(6),
                         cursor.getInt(7),
-                        cursor.getString(8));
+                        cursor.getString(8),
+                        cursor.getInt(9));
                 data.get(video.getLevel()).add(video); //add a new video from SQLite to its level
             }
             return data;
@@ -48,7 +49,8 @@ public class Database {
             databaseQuery.QueryData("" +
                     "UPDATE Video " +
                     "SET time_played_video = "+now_video.getTime_played_this_video()+"," +
-                        "percent_eachTimePlayed = '"+now_video.getPercent_of_eachTimePlayed()+"' " +
+                        "percent_eachTimePlayed = '"+now_video.getPercent_of_eachTimePlayed()+"', " +
+                        "avg_percent_of_all_time = "+now_video.getAvg_percent_of_all_time()+" "+
                     "WHERE id_video = '"+now_video.getId_video()+"'");
             Log.d("database","finish database update video");
         }

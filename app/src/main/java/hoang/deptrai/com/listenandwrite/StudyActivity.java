@@ -131,6 +131,13 @@ public class StudyActivity extends YouTubeBaseActivity implements YouTubePlayer.
     private void updateVideo_aNew_playTime(){
         now_video.setTime_played_this_video(now_video.getTime_played_this_video()+1);
         now_video.setPercent_of_eachTimePlayed(now_video.getPercent_of_eachTimePlayed()+" "+(totalPercent/subLyric_array.length));
+        int[] persent_of_eachTimePlayed_array = toolString.split_string_to_int_array(now_video.getPercent_of_eachTimePlayed());
+        int sum = 0;
+        for(int i=0; i<persent_of_eachTimePlayed_array.length; i++){
+            sum += persent_of_eachTimePlayed_array[i];
+        }
+        Log.d("database","sum: "+sum+ "  time: "+now_video.getTime_played_this_video());
+        now_video.setAvg_percent_of_all_time(sum/now_video.getTime_played_this_video());
     }
 
     private void drawChart() {

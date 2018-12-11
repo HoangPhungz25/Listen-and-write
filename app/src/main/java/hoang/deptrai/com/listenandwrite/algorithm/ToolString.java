@@ -19,7 +19,8 @@ public class ToolString {
         return standardized_string.split("\\s");
     }
     public int[] split_string_to_int_array(String string){
-        String[] splited_string_array = string.split("\\s");
+        String standardized_string = standardize_string(string);//this should be replace by s single code, not a whole function, it costs a lot
+        String[] splited_string_array = standardized_string.split("\\s");
         int[] result_array = new int[splited_string_array.length];
         for (int i=0; i<splited_string_array.length; i++){
             result_array[i] = Integer.parseInt(splited_string_array[i]);

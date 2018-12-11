@@ -24,7 +24,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Name"
-                android:textSize="20sp"
+                android:textSize="18sp"
                 android:textStyle="bold"/>
             <TextView
                 android:id="@+id/tvAuthor"
@@ -33,15 +33,27 @@
                 android:text="Author"
                 android:textSize="18sp"/>
 
+            <View
+                android:id="@+id/view"
+                android:layout_width="match_parent"
+                android:layout_height="35dp" />
+
+            <ProgressBar
+                android:id="@+id/progressBarTotalPercent"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="match_parent"
+                android:layout_height="12dp" />
+
+
         </LinearLayout>
         <TextView
             android:text="1"
-            android:textSize="36sp"
+            android:textSize="30sp"
             android:textStyle="bold"
             android:gravity="center"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/tvLevel"/>
+            android:id="@+id/tvTimePlayed"/>
     </LinearLayout>
    <TextView
        android:layout_width="match_parent"
