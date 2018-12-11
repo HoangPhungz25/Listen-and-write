@@ -2,6 +2,7 @@ package hoang.deptrai.com.listenandwrite.data;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.util.Log;
 
 import java.util.ArrayList;
 
@@ -28,16 +29,28 @@ public class Database {
 
             while(cursor.moveToNext()){
                 Video video = new Video(
-                        cursor.getString(1),
-                        Integer.parseInt(cursor.getString(2)),
+                        cursor.getString(0),
+                        Integer.parseInt(cursor.getString(1)),
+                        cursor.getString(2),
                         cursor.getString(3),
                         cursor.getString(4),
                         cursor.getString(5),
                         cursor.getString(6),
-                        cursor.getString(7));
+                        cursor.getInt(7),
+                        cursor.getString(8));
                 data.get(video.getLevel()).add(video); //add a new video from SQLite to its level
             }
             return data;
+        }
+        public void updateVideo_Info_toDatabase(Video now_video){
+            Log.d("database","In database update video");
+
+            databaseQuery.QueryData("" +
+                    "UPDATE Video " +
+                    "SET time_played_video = "+now_video.getTime_played_this_video()+"," +
+                        "percent_eachTimePlayed = '"+now_video.getPercent_of_eachTimePlayed()+"' " +
+                    "WHERE id_video = '"+now_video.getId_video()+"'");
+            Log.d("database","finish database update video");
         }
 
 

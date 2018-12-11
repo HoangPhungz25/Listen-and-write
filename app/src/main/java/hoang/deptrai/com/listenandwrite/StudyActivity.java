@@ -49,7 +49,7 @@ public class StudyActivity extends YouTubeBaseActivity implements YouTubePlayer.
     private int[] track_start_array, track_end_array;
     private String[] subLyric_array;
     private ObjectModel_To_DrawChart[] objectModel_To_DrawChart_Array;
-    private int totalScore = 0;
+    private int totalPercent = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,22 +69,14 @@ public class StudyActivity extends YouTubeBaseActivity implements YouTubePlayer.
         track_end_array = toolString.split_string_to_int_array(now_video.getTrack_end_array());
         subLyric_array = toolString.split_lyrics(now_video.getLyrics());
 
-//        Log.d("data_intent",player.toString());
-//        Log.d("data_intent",now_video.getTrack_end_array());
-//        Log.d("data_intent",now_video.getTrack_start_array());
-//        Log.d("data_intent",now_video.getLyrics());
-
-        Log.d("data_intent","Start: addControls()");
         addControls();
     }
 
     private void addEvents() {
-        Log.d("data_intent","Start: addEvents()");
 
         spinnerSelectTrack.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                Log.d("data_intent","Start: item onSelected()");
                 index_selected_track = position;
                 updateEditextAndTextView();
                 repeatPlay(track_start_array[position],track_end_array[position]);
@@ -98,22 +90,20 @@ public class StudyActivity extends YouTubeBaseActivity implements YouTubePlayer.
         btCheck.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("handler","Start Check");
                 objectModel_To_DrawChart_Array[index_selected_track] = compare2StringArray.compare2StringArray(
                                                                             etAnswer.getText().toString(),
                                                                             subLyric_array[index_selected_track]);
-                totalScore += objectModel_To_DrawChart_Array[index_selected_track].getPercent_OfSimilarSubString();
+                totalPercent += objectModel_To_DrawChart_Array[index_selected_track].getPercent_OfSimilarSubString();
                 tvResult.setText(toolString.colorize(
                                                 subLyric_array[index_selected_track],
                                                 objectModel_To_DrawChart_Array[index_selected_track].getResult_index_array()
                                                 ));
-                Toast.makeText(StudyActivity.this, "Checked : ", Toast.LENGTH_LONG).show();
-                Toast.makeText(StudyActivity.this,
-                        objectModel_To_DrawChart_Array[index_selected_track].getPercent_OfSimilarSubString()+"",
-                        Toast.LENGTH_SHORT).show();
-                Log.d("handler","End Check");
-
-                if(index_selected_track==5) drawChart();
+                if(index_selected_track==(subLyric_array.length-1)) {
+                    updateVideo_aNew_playTime();
+                    Log.d("database","update video");
+                    MainActivity.database.updateVideo_Info_toDatabase(now_video);
+                    drawChart();
+                }
             }
         });
         btNext.setOnClickListener(new View.OnClickListener() {
@@ -138,10 +128,13 @@ public class StudyActivity extends YouTubeBaseActivity implements YouTubePlayer.
         });
     }
 
+    private void updateVideo_aNew_playTime(){
+        now_video.setTime_played_this_video(now_video.getTime_played_this_video()+1);
+        now_video.setPercent_of_eachTimePlayed(now_video.getPercent_of_eachTimePlayed()+" "+(totalPercent/subLyric_array.length));
+    }
+
     private void drawChart() {
         Intent intent = new Intent(StudyActivity.this, ChartResultActivity.class);
-//        Bundle bundle = new Bundle();
-//        bundle.putSerializable("_BUNDLE_CHART_DATA",objectModel_To_DrawChart_Array);
         intent.putExtra("CHART_DATA", objectModel_To_DrawChart_Array);
         Log.d("intent_chart","putExtra");
         startActivity(intent);

@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -17,19 +16,12 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Spinner;
-import android.widget.Toast;
-import android.widget.Toolbar;
-
-import com.google.android.youtube.player.YouTubeInitializationResult;
-import com.google.android.youtube.player.YouTubeThumbnailLoader;
-import com.google.android.youtube.player.YouTubeThumbnailView;
 
 import java.util.ArrayList;
 
 import hoang.deptrai.com.listenandwrite.adapter.AdapterVideo;
 import hoang.deptrai.com.listenandwrite.data.Database;
 import hoang.deptrai.com.listenandwrite.data.Database_Query;
-import hoang.deptrai.com.listenandwrite.data.SimulateData;
 import hoang.deptrai.com.listenandwrite.data.SimulateData_to_SQLiteDatabase;
 import hoang.deptrai.com.listenandwrite.data.Video;
 
@@ -40,6 +32,8 @@ public class MainActivity extends AppCompatActivity {
 
     DrawerLayout drawerLayout;
     NavigationView navigationView;
+
+    public static Database database;
 
     private int NOW_LEVEL = 0;
     @Override
@@ -129,17 +123,10 @@ public class MainActivity extends AppCompatActivity {
         drawerLayout = findViewById(R.id.drawerLayout);
         navigationView = findViewById(R.id.nav_view);
 
-
         //data
-        /* No longer required, this is the old way to create data
-            SimulateData simulateData = new SimulateData();
-            data = simulateData.getManyListVideo();
-         */
-//        SimulateData_to_SQLiteDatabase simulateData_to_sqLiteDatabase = new SimulateData_to_SQLiteDatabase(MainActivity.this);
-//        Log.d("database","created simulate database");
-        Database database = new Database(new Database_Query(this,"LAW_databaseQuery.sql",null, 1));
+        new SimulateData_to_SQLiteDatabase(this);
+        database = new Database(new Database_Query(this,"LAW_databaseQuery.sql",null, 1));
         data = database.getDataFromVideoTable();
-//        Log.d("database","got database to ArayList<ArrayList<>>");
     }
     private void updateListView(int level){
         ArrayList<Video> listVideo = data.get(level);

@@ -90,7 +90,7 @@ public class Compare2StringArray {
             }
         }
 
-        percent_ofSimilarSubstring = (10 * max_length_substring_in_list2Dsubstring / stringArray_result.length);
+        percent_ofSimilarSubstring = (100 * max_length_substring_in_list2Dsubstring / stringArray_result.length);
 
         Log.d("percent",percent_ofSimilarSubstring+"");
             int[] result_index_array = new int[stringArray_result.length];
@@ -105,7 +105,7 @@ public class Compare2StringArray {
             }
 
 
-        return new ObjectModel_To_DrawChart(result_index_array, percent_ofSimilarSubstring);
+        return new ObjectModel_To_DrawChart(string_result, result_index_array, max_length_substring_in_list2Dsubstring, percent_ofSimilarSubstring);
     }
 
     private boolean compare2Word(String string_src, String string_des){

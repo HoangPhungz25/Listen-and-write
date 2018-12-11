@@ -4,11 +4,11 @@ import java.util.ArrayList;
 
 import hoang.deptrai.com.listenandwrite.R;
 
-public class SimulateData {
+public class zNoLongerRequired_SimulateData {
     private final int NUMBER_OF_LEVEL = 9;
     private ArrayList<ArrayList<Video>> data;
 
-    public SimulateData(){
+    public zNoLongerRequired_SimulateData(){
     }
     public ArrayList<ArrayList<Video>> getManyListVideo() {
 

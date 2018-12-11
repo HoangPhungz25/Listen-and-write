@@ -6,40 +6,47 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
+import hoang.deptrai.com.listenandwrite.adapter.AdapterChartItem;
 import hoang.deptrai.com.listenandwrite.algorithm.ObjectModel_To_DrawChart;
 
 public class ChartResultActivity extends AppCompatActivity {
     ListView lvResult;
+    AdapterChartItem adapterChartItem;
+    ArrayList<ObjectModel_To_DrawChart> list_objectModel_To_DrawChart;
     GraphView graphViewResult;
+    TextView tvTotalScore;
     ObjectModel_To_DrawChart[] objectModel_to_drawCharts;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chart_result);
-        Log.d("intent_chart","created");
 
-        Log.d("intent_chart","Get intent");
         Intent intent = getIntent();
-        Log.d("intent_chart","Get serializsble");
         objectModel_to_drawCharts = (ObjectModel_To_DrawChart[]) intent.getSerializableExtra("CHART_DATA");
-        Log.d("intent_chart","Get serializsble done");
 
         addControls();
 
         DataPoint[] dataPoints = new DataPoint[objectModel_to_drawCharts.length];
-        Log.d("length",objectModel_to_drawCharts.length+"");
+        int total = 0;
         for(int i=0; i<objectModel_to_drawCharts.length; i++){
             if(objectModel_to_drawCharts[i]!=null){
-                dataPoints[i] = new DataPoint(i,objectModel_to_drawCharts[i].getPercent_OfSimilarSubString());
+                dataPoints[i] = new DataPoint(i,(objectModel_to_drawCharts[i].getPercent_OfSimilarSubString()/10));
+                total+= objectModel_to_drawCharts[i].getPercent_OfSimilarSubString();
             }else{
                 dataPoints[i] = new DataPoint(i,0);
             }
         }
+        total/=objectModel_to_drawCharts.length;
+        tvTotalScore.setText("Total Score: "+total+"%");
         LineGraphSeries<DataPoint> series = new LineGraphSeries<DataPoint>(dataPoints);
         series.setColor(Color.GREEN);
         graphViewResult.addSeries(series);
@@ -49,25 +56,22 @@ public class ChartResultActivity extends AppCompatActivity {
 
     }
 
-//    private class DataPoint{
-//        int index;
-//        int value;
-//        public DataPoint(int index, int value){
-//            this.index = index;
-//            this.value = value;
-//        }
-//    }
-
     private void addEvents() {
     }
 
     private void addControls() {
         lvResult = findViewById(R.id.lvResult);
+        list_objectModel_To_DrawChart = new ArrayList<>(Arrays.asList(objectModel_to_drawCharts));
+        adapterChartItem = new AdapterChartItem(this,R.layout.item_chart_result,list_objectModel_To_DrawChart);
+        lvResult.setAdapter(adapterChartItem);
+
         graphViewResult = findViewById(R.id.graphViewResult);
         graphViewResult.setBackgroundColor(getResources().getColor(android.R.color.holo_blue_bright));
         graphViewResult.getViewport().setXAxisBoundsManual(true);
         graphViewResult.getViewport().setMaxX(objectModel_to_drawCharts.length);
         graphViewResult.getViewport().setYAxisBoundsManual(true);
         graphViewResult.getViewport().setMaxY(10);
+
+        tvTotalScore = findViewById(R.id.tvTotalScore);
     }
 }

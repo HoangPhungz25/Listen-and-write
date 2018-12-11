@@ -13,7 +13,16 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="2"/>
+    <TextView
+        android:id="@+id/tvTotalScore"
+        android:text="Total score: "
+        android:textColor="#15b72d"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_width="match_parent"
+        android:layout_height="38dp" />
     <ListView
+        android:layout_marginTop="3dp"
         android:id="@+id/lvResult"
         android:layout_width="match_parent"
         android:layout_height="0dp"
