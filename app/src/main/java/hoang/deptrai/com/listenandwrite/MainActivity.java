@@ -45,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setTitle("");
         actionBar.setHomeAsUpIndicator(R.drawable.nav_drawer_button);
 
         addControls();
@@ -63,16 +64,19 @@ public class MainActivity extends AppCompatActivity {
                         for (Fragment fragment:getSupportFragmentManager().getFragments()) {
                             getSupportFragmentManager().beginTransaction().remove(fragment).commit();
                         }
+                        spinnerLevel.setVisibility(View.VISIBLE);
                         break;
                     case R.id.nav_about_us:
                         getSupportFragmentManager().
                                 beginTransaction().
                                 add(R.id.fragment_container,new FragmentAboutUs()).commit();
+                        spinnerLevel.setVisibility(View.GONE);
                         break;
                     case R.id.nav_login:
                         getSupportFragmentManager().
                                 beginTransaction().
                                 add(R.id.fragment_container,new FragmentLogin()).commit();
+                        spinnerLevel.setVisibility(View.GONE);
                         break;
                 }
                 return true;
@@ -83,7 +87,6 @@ public class MainActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 NOW_LEVEL = position;
                 updateListView(position);
-//                spinnerLevel.setVisibility(View.VISIBLE);
             }
 
             @Override
@@ -105,13 +108,6 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-//        lvVideo.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-//            @Override
-//            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-//                spinnerLevel.setVisibility(View.GONE);
-//                return true;
-//            }
-//        });
     }
 
     private void addControls() {
