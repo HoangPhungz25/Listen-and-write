@@ -83,6 +83,7 @@ public class MainActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 NOW_LEVEL = position;
                 updateListView(position);
+//                spinnerLevel.setVisibility(View.VISIBLE);
             }
 
             @Override
@@ -104,6 +105,13 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+//        lvVideo.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+//            @Override
+//            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+//                spinnerLevel.setVisibility(View.GONE);
+//                return true;
+//            }
+//        });
     }
 
     private void addControls() {
@@ -144,5 +152,13 @@ public class MainActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        data = database.getDataFromVideoTable();
+        updateListView(NOW_LEVEL);
+    }
 }
 //add update database when onResume*********************************
+//fix password edit text to password style********************

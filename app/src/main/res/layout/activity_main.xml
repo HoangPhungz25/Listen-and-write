@@ -35,12 +35,14 @@
                     <Spinner
                         android:id="@+id/spinnerLevel"
                         android:layout_width="match_parent"
+                        android:gravity="right"
                         android:background="?attr/colorPrimaryDark"
                         android:layout_height="50dp">
                     </Spinner>
                 </android.support.v7.widget.Toolbar>
 
                 <ListView
+                    android:layout_marginLeft="5dp"
                     android:id="@+id/lvVideo"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" />

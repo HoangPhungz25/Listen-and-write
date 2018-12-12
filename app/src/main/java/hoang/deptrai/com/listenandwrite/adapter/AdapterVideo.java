@@ -25,7 +25,6 @@ public class AdapterVideo extends ArrayAdapter<Video> {
     Activity context;
     int resource;
     @NonNull List<Video> objects;
-    ToolString toolString = new ToolString();
     public AdapterVideo(@NonNull Activity context, int resource, @NonNull List<Video> objects) {
         super(context, resource, objects);
         this.context = context;

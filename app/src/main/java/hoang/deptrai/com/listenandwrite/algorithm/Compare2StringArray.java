@@ -22,6 +22,7 @@ public class Compare2StringArray {
         String[] stringArray_result = toolString.split_string_to_string_array(string_result);
         ArrayList<SubStrings_Indexs_Model> list_2D_subStrings = new ArrayList<SubStrings_Indexs_Model>();
         int percent_ofSimilarSubstring = 0;
+        int[] was_similar = new int[stringArray_result.length];
 
 
 //        int[] return_result = new int[stringArray_result.length];
@@ -30,8 +31,9 @@ public class Compare2StringArray {
 //        int max_number_of_similar_string = 0;
 
         for(int i=0; i<stringArray_answer.length; i++){
-            for (int j=0; j<stringArray_result.length; j++)
-                if(compare2Word(stringArray_answer[i],stringArray_result[j])){
+            for (int j=stringArray_result.length-1; j>=0; j--)
+                if(compare2Word(stringArray_answer[i],stringArray_result[j]) /*&& was_similar[j]==0*/){
+//                    was_similar[j] = 1;
                     boolean is_belong_to_a_existed_substring = false;
                     boolean is_between_a_existed_substring = false;
                     for(int k=0; k<list_2D_subStrings.size(); k++){
@@ -49,13 +51,16 @@ public class Compare2StringArray {
                                         new SubStrings_Indexs_Model(stringArray_result.length,
                                                                     subStrings_indexs_model.getFirst_index_of_similar_substring(),
                                                                     j);
+                                int number_of_similar_new_subString = 0;
                                 //copy index_array of the old subStrings_indexs_model to index_array of the new one from index start to j
                                 for(int i2=subStrings_indexs_model.getFirst_index_of_similar_substring(); i2<j; i2++){
                                         new_subStrings_indexs_model.getIndex_array_of_similar_substrings()[i2] =
                                                 subStrings_indexs_model.getIndex_array_of_similar_substrings()[i2];
+                                        number_of_similar_new_subString++;
                                 }
                                 new_subStrings_indexs_model.getIndex_array_of_similar_substrings()[j] = 1;
-                                new_subStrings_indexs_model.setNumber_of_similar_substrings(subStrings_indexs_model.getNumber_of_similar_substrings()+1);
+                                number_of_similar_new_subString++;
+                                new_subStrings_indexs_model.setNumber_of_similar_substrings(number_of_similar_new_subString);
                                 list_2D_subStrings.add(new_subStrings_indexs_model);
 
                             }
@@ -77,7 +82,7 @@ public class Compare2StringArray {
                         list_2D_subStrings.add(new SubStrings_Indexs_Model(stringArray_result.length,j,j));
                         list_2D_subStrings.get(list_2D_subStrings.size()-1).getIndex_array_of_similar_substrings()[j]=1;
                     }
-                    break;
+//                    break; this will ignore : nobody,nobody,until you
                 }
         }
         int max_length_substring_in_list2Dsubstring = 0;
