@@ -56,7 +56,7 @@ public class Compare2StringArray {
                                 for(int i2=subStrings_indexs_model.getFirst_index_of_similar_substring(); i2<j; i2++){
                                         new_subStrings_indexs_model.getIndex_array_of_similar_substrings()[i2] =
                                                 subStrings_indexs_model.getIndex_array_of_similar_substrings()[i2];
-                                        number_of_similar_new_subString++;
+                                        if(new_subStrings_indexs_model.getIndex_array_of_similar_substrings()[i2]!=0)number_of_similar_new_subString++;
                                 }
                                 new_subStrings_indexs_model.getIndex_array_of_similar_substrings()[j] = 1;
                                 number_of_similar_new_subString++;
@@ -85,15 +85,22 @@ public class Compare2StringArray {
 //                    break; this will ignore : nobody,nobody,until you
                 }
         }
+
         int max_length_substring_in_list2Dsubstring = 0;
         int index_of_max_length_substring_in_list2Dsubstring = -1;
 
         for(int i=0; i<list_2D_subStrings.size(); i++){
+            for(int j=0; j<stringArray_result.length; j++) Log.d("strComp",list_2D_subStrings.get(i).getIndex_array_of_similar_substrings()[j]+"");
+            Log.d("strComp","sum: "+list_2D_subStrings.get(i).getNumber_of_similar_substrings());
             if(list_2D_subStrings.get(i).getNumber_of_similar_substrings()>max_length_substring_in_list2Dsubstring){
                 max_length_substring_in_list2Dsubstring= list_2D_subStrings.get(i).getNumber_of_similar_substrings();
                 index_of_max_length_substring_in_list2Dsubstring = i;
+                Log.d("strComp","Update max: "+max_length_substring_in_list2Dsubstring+" --- "+index_of_max_length_substring_in_list2Dsubstring);
             }
+            Log.d("strComp","-------------------");
         }
+        Log.d("strComp","Max: "+max_length_substring_in_list2Dsubstring+ " , index: "+index_of_max_length_substring_in_list2Dsubstring);
+
 
         percent_ofSimilarSubstring = (100 * max_length_substring_in_list2Dsubstring / stringArray_result.length);
 

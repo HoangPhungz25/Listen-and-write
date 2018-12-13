@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -48,7 +47,7 @@ public class ChartResultActivity extends AppCompatActivity {
         total/=objectModel_to_drawCharts.length;
         tvTotalScore.setText("Total Score: "+total+"%");
         LineGraphSeries<DataPoint> series = new LineGraphSeries<DataPoint>(dataPoints);
-        series.setColor(Color.GREEN);
+        series.setColor(Color.rgb(255,233,0));
         graphViewResult.addSeries(series);
 
         addEvents();
@@ -62,7 +61,7 @@ public class ChartResultActivity extends AppCompatActivity {
     private void addControls() {
         lvResult = findViewById(R.id.lvResult);
         list_objectModel_To_DrawChart = new ArrayList<>(Arrays.asList(objectModel_to_drawCharts));
-        adapterChartItem = new AdapterChartItem(this,R.layout.item_chart_result,list_objectModel_To_DrawChart);
+        adapterChartItem = new AdapterChartItem(this,R.layout.item_chart_result_for_a_track,list_objectModel_To_DrawChart);
         lvResult.setAdapter(adapterChartItem);
 
         graphViewResult = findViewById(R.id.graphViewResult);

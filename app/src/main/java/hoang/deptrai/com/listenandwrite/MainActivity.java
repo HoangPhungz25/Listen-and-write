@@ -1,5 +1,6 @@
 package hoang.deptrai.com.listenandwrite;
 
+import android.app.FragmentManager;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -64,18 +65,21 @@ public class MainActivity extends AppCompatActivity {
                         for (Fragment fragment:getSupportFragmentManager().getFragments()) {
                             getSupportFragmentManager().beginTransaction().remove(fragment).commit();
                         }
+                        android.app.Fragment fragment = getFragmentManager().findFragmentByTag("fragment_chart_for_video");
+                        Log.d("fragment","get by tag: "+fragment);
+                        if(fragment!=null)  getFragmentManager().beginTransaction().remove(fragment).commit();
                         spinnerLevel.setVisibility(View.VISIBLE);
                         break;
                     case R.id.nav_about_us:
                         getSupportFragmentManager().
                                 beginTransaction().
-                                add(R.id.fragment_container,new FragmentAboutUs()).commit();
+                                add(R.id.fragment_container,new FragmentAboutUs()).addToBackStack("about_us").commit();
                         spinnerLevel.setVisibility(View.GONE);
                         break;
                     case R.id.nav_login:
                         getSupportFragmentManager().
                                 beginTransaction().
-                                add(R.id.fragment_container,new FragmentLogin()).commit();
+                                add(R.id.fragment_container,new FragmentLogin()).addToBackStack("login").commit();
                         spinnerLevel.setVisibility(View.GONE);
                         break;
                 }
@@ -97,6 +101,7 @@ public class MainActivity extends AppCompatActivity {
         lvVideo.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Log.d("click","clicked");
                 if(data!=null)startStudyActivity(position);
             }
 
@@ -147,6 +152,14 @@ public class MainActivity extends AppCompatActivity {
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Log.d("back","pressed");
+        getFragmentManager().popBackStack();
+        Log.d("back","popped");
     }
 
     @Override
